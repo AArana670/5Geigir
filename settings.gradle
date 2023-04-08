@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "5Geigir"
+rootProject.name = "5Geiger"
 include ':app'

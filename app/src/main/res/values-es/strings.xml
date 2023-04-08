@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">5Geigir</string>
-    <string name="welcome_title">Bienvenido a 5Geigir</string>
-    <string name="welcome_msg">Con 5Geigir vas a ser capaz de medir las emisiones electromagnéticas de las señales de radio de telefonía móvil de tu entorno.</string>
+    <string name="app_name">5Geiger</string>
+    <string name="welcome_title">Bienvenido a 5Geiger</string>
+    <string name="welcome_msg">Con 5Geiger vas a ser capaz de medir las emisiones electromagnéticas de las señales de radio de telefonía móvil de tu entorno.</string>
     <string name="welcome_btn">Siguiente</string>
     <string name="main_getStarted">Empieza a medir tu entorno</string>
     <string name="main_measureStart">Medir</string>
     <string name="main_measureStop">Parar</string>
     <string name="permission_title">Permisos requeridos</string>
-    <string name="permission_msg">5Geigir necesita acceso a tus señales de radio, ubicación y notificaciones para poder funcionar, por favor acepta estos permisos para empezar a medir el campo electromagnético. El uso de éstos puede ser modificado más adelante desde el panel de ajustes.</string>
+    <string name="permission_msg">5Geiger necesita acceso a tus señales de radio, ubicación y notificaciones para poder funcionar, por favor acepta estos permisos para empezar a medir el campo electromagnético. El uso de éstos puede ser modificado más adelante desde el panel de ajustes.</string>
     <string name="menu_settingsOption">Ajustes</string>
     <string name="pref_dataManagement">Gestión de datos</string>
     <string name="prefs_dataExpiration_title">Caducidad de los datos</string>
@@ -32,7 +32,7 @@
     <string name="char_gt"><![CDATA[>]]></string>
     <string name="permission_btn">Conceder</string>
     <string name="dialog_permissions_title">Permisos necesarios</string>
-    <string name="dialog_permissions_desc">5Geigir necesita algunos permisos para medir, por favor concédelos antes de empezar</string>
+    <string name="dialog_permissions_desc">5Geiger necesita algunos permisos para medir, por favor concédelos antes de empezar</string>
     <string name="dialog_permissions_accept">Conceder</string>
     <string name="dialog_permissions_deny">Denegar</string>
     <string name="dialog_permissions_cancelled">Se ha cancelado la medición</string>
@@ -41,7 +41,7 @@
     <string name="lastMeasurement_title">Última medición</string>
     <string name="currentMeasurement_cont">Nuevas mediciones</string>
     <string name="notification_measuring_title">Midiendo señales</string>
-    <string name="notification_measuring_desc">5Geigir está midiendo el campo EM</string>
+    <string name="notification_measuring_desc">5Geiger está midiendo el campo EM</string>
     <string name="pref_silent_title">Modo silencioso</string>
     <string name="pref_silent_desc">Deshabilitar las notificaciones</string>
     <string name="pref_private_title">Modo privado</string>
