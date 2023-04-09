@@ -38,6 +38,7 @@ import com.example.a5geigir.NetworkManager;
 import com.example.a5geigir.PermissionDialog;
 import com.example.a5geigir.R;
 import com.example.a5geigir.db.AppDatabase;
+import com.example.a5geigir.db.Measurement;
 import com.example.a5geigir.db.Signal;
 
 public class MainActivity extends AppCompatActivity implements DialogListener, NetworkListener {
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
     }
 
     @Override
-    public void onNetworkUpdate(Signal s) {  //A new signal has been created
+    public void onNetworkUpdate(Measurement m) {  //A new signal has been created
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -5,16 +5,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(primaryKeys = {"cId","moment"})
 public class Signal{
 
     @NonNull
     @ColumnInfo(name = "cId")
     public int cId;  //Physical cell identifier
 
-    @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "moment")
+    @ColumnInfo(name = "moment")  //equal to the moment of the Measurement
     public String moment;  //Time of measurement in yyyy-MM-dd HH:mm:ss format
 
     @ColumnInfo(name = "ubiLat")

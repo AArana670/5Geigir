@@ -10,11 +10,13 @@ import androidx.preference.PreferenceManager;
 import androidx.room.Room;
 
 import com.example.a5geigir.db.AppDatabase;
+import com.example.a5geigir.db.Measurement;
 import com.example.a5geigir.db.Signal;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class NetworkManager {
 
@@ -51,8 +53,8 @@ public class NetworkManager {
                 try {
                     while (true) {
                         Thread.sleep(5000);
-                        Signal s = measure();
-                        notifyListeners(s);
+                        Measurement m = measure();
+                        notifyListeners(m);
                     }
                 } catch (InterruptedException e) {
                 }
@@ -61,8 +63,7 @@ public class NetworkManager {
     }
 
     @SuppressLint("MissingPermission")
-    private Signal measure() {
-        int cId = (int) Math.floor(Math.random() * 30);
+    private Measurement measure() {
         String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
         double ubiLat = 0;
@@ -73,20 +74,30 @@ public class NetworkManager {
             ubiLong = ubi.getLongitude();
         }
 
-        int dBm = (int) ((Math.random()*-50)-20);
-        String type = "5G";
-        int freq = (int) ((Math.random()*400)+3400);
+        int amount = (int) (Math.random()*10)+1;
+        List<Integer> dBmList = new ArrayList<Integer>();
 
-        Signal s = new Signal(cId, moment, ubiLat, ubiLong, dBm, type, freq);
+        for (int i = 0; i < amount; i++){
+            int cId = i;
+            int dBm = (int) ((Math.random()*-50)-20);
+            String type = "5G";
+            int freq = (int) ((Math.random()*400)+3400);
 
-        db.signalDao().insertSignal(s);
+            Signal s = new Signal(cId, moment, ubiLat, ubiLong, dBm, type, freq);
+            db.signalDao().insertSignal(s);
+            dBmList.add(dBm);
+            Log.d("SignalDB", "Added new; cId: "+s.cId+", moment: "+s.moment+", ubiLat: "+s.ubiLat+", ubiLong: "+ s.ubiLong+", dBm: "+s.dBm);
+        }
+
+        int meanDBm = (int)dBmList.stream().mapToDouble(a->a).average().getAsDouble();  //https://stackoverflow.com/a/31021873
+
+        Measurement m = new Measurement(moment, meanDBm);
+
+        db.measurementDao().insertMeasurement(m);
 
         counter++;
 
-        Log.d("SignalDB", "Added new; cId: "+s.cId+", moment: "+s.moment+", ubiLat: "+s.ubiLat+", ubiLong: "+ s.ubiLong+", dBm: "+s.dBm);
-
-
-        return s;
+        return m;
     }
 
     public static NetworkManager getInstance(Context context){
@@ -104,9 +115,9 @@ public class NetworkManager {
         listeners.remove(l);
     }
 
-    private void notifyListeners(Signal s) {
+    private void notifyListeners(Measurement m) {
         for (NetworkListener l : listeners){
-            l.onNetworkUpdate(s);
+            l.onNetworkUpdate(m);
         }
     }
 
