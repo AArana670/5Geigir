@@ -111,6 +111,12 @@ public class MeasurementActivity extends AppCompatActivity {
         }
     }
 
+    public void jumpToSettings(){
+        Intent i = new Intent(this, SettingsActivity.class);
+        i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -127,9 +133,16 @@ public class MeasurementActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void jumpToSettings(){
-        Intent i = new Intent(this, SettingsActivity.class);
-        i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt("position", currentPos);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        currentPos = savedInstanceState.getInt("position");
+        showSignal();
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }
