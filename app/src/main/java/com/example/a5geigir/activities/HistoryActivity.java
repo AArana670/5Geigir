@@ -2,8 +2,10 @@ package com.example.a5geigir.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.a5geigir.DataUploader;
 import com.example.a5geigir.ListAdapter;
+import com.example.a5geigir.NetworkManager;
 import com.example.a5geigir.R;
 import com.example.a5geigir.db.AppDatabase;
 import com.example.a5geigir.db.Signal;
@@ -23,6 +27,7 @@ public class HistoryActivity extends AppCompatActivity {
     RecyclerView signalRecyler;
     ListAdapter listAdapter;
     private AppDatabase db;
+    private NetworkManager networkManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,17 @@ public class HistoryActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void uploadData(){
+        DataUploader dataUploader = DataUploader.getInstance();
+
+        int status = dataUploader.upload();
+        if (status == DataUploader.SUCCESS)
+            Toast.makeText(this, getText(R.string.hist_dataUploaded_success), Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, getText(R.string.hist_datUploaded_error), Toast.LENGTH_SHORT).show();
+        createList();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.history_menu, menu);
@@ -68,6 +84,9 @@ public class HistoryActivity extends AppCompatActivity {
                 break;
             case R.id.menu_refresh:
                 createList();
+                break;
+            case R.id.menu_upload:
+                uploadData();
                 break;
         }
         return super.onOptionsItemSelected(item);
