@@ -16,7 +16,7 @@ public interface SignalDao {
     List<Signal> getSignalsSince(String moment);  //Currently unused feature
 
     @Query("SELECT * FROM signal WHERE moment = :moment")
-    Signal getSignalAt(String moment);
+    List<Signal> getSignalsAt(String moment);
 
     @Query("SELECT * FROM signal ORDER BY moment DESC LIMIT 1")
     Signal getLastSignal();

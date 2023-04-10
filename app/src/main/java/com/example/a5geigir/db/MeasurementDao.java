@@ -8,8 +8,11 @@ import java.util.List;
 @Dao
 public interface MeasurementDao {
 
-    @Query("SELECT * FROM measurement")
+    @Query("SELECT * FROM measurement ORDER BY moment")
     List<Measurement> getMeasurements();
+
+    @Query("SELECT * FROM measurement ORDER BY moment DESC LIMIT 1")
+    Measurement getLastMeasurement();
 
     @Insert
     void insertMeasurement(Measurement measurement);

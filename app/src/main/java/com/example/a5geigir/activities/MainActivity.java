@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
 
     private void showLastMeasurement() {
         //currentMeasurementPanel.setVisibility(View.INVISIBLE);
-        if (db.signalDao().getSignals().isEmpty()) {
+        if (db.measurementDao().getMeasurements().isEmpty()) {
             measurementTitle.setText(getText(R.string.main_getStarted));
             measurementMoment.setText("");
             measurementDBm.setText("");

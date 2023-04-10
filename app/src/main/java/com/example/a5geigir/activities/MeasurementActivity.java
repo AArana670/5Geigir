@@ -18,9 +18,12 @@ import com.example.a5geigir.R;
 import com.example.a5geigir.db.AppDatabase;
 import com.example.a5geigir.db.Signal;
 
+import java.util.List;
+
 public class MeasurementActivity extends AppCompatActivity {
 
-    private final int currentPos = 0;
+    private int currentPos = 0;
+    private List<Signal> signalList;
     private TextView signalDate;
     private TextView signalTime;
     private TextView signalDBm;
@@ -47,45 +50,52 @@ public class MeasurementActivity extends AppCompatActivity {
                 "signalDB"
         ).allowMainThreadQueries().build();
 
-        Signal s = db.signalDao().getSignalAt(moment);  //Get the data of the selected signal
+        signalList = db.signalDao().getSignalsAt(moment);  //Get the data of the selected measurement
+        showSignal();
+    }
+
+    private void showSignal() {
+        Signal currentSignal = signalList.get(currentPos);
 
         signalDate = (TextView) findViewById(R.id.measurement_date);
-        signalDate.setText(moment.split(" ")[0]);
+        signalDate.setText(currentSignal.moment.split(" ")[0]);
 
         signalTime = (TextView) findViewById(R.id.measurement_time);
-        signalTime.setText(moment.split(" ")[1]);
+        signalTime.setText(currentSignal.moment.split(" ")[1]);
 
         signalDBm = (TextView) findViewById(R.id.measurement_dBm_value);
-        signalDBm.setText(s.dBm+"");
+        signalDBm.setText(currentSignal.dBm+"");
 
         signalBar = (ProgressBar) findViewById(R.id.measurement_dBm_bar);
-        signalBar.setProgress(s.dBm);
-        setProgressColor(s.dBm);
+        signalBar.setProgress(currentSignal.dBm);
+        setProgressColor(currentSignal.dBm);
 
         signalCId = (TextView) findViewById(R.id.measurement_cId_value);
-        signalCId.setText(s.cId+"");
+        signalCId.setText(currentSignal.cId+"");
 
         signalUbiLat = (TextView) findViewById(R.id.measurement_ubiLat_value);
-        signalUbiLat.setText(s.ubiLat+"");
+        signalUbiLat.setText(currentSignal.ubiLat+"");
 
         signalUbiLong = (TextView) findViewById(R.id.measurement_ubiLong_value);
-        signalUbiLong.setText(s.ubiLong+"");
+        signalUbiLong.setText(currentSignal.ubiLong+"");
 
         signalFreq = (TextView) findViewById(R.id.measurement_freq_value);
-        signalFreq.setText(s.freq+"");
+        signalFreq.setText(currentSignal.freq+"");
 
         signalType = (TextView) findViewById(R.id.measurement_type_value);
-        signalType.setText(s.type+"");
+        signalType.setText(currentSignal.type+"");
     }
 
-    public void showPrev(View v){  //Currently unused feature
-        Toast toast = Toast.makeText(this, "Prev",Toast.LENGTH_SHORT);
-        toast.show();
+    public void showPrev(View v){
+        if(currentPos > 0)
+            currentPos--;
+        showSignal();
     }
 
-    public void showNext(View v){  //Currently unused feature
-        Toast toast = Toast.makeText(this, "Next",Toast.LENGTH_SHORT);
-        toast.show();
+    public void showNext(View v){
+        if(currentPos < signalList.size()-1)
+            currentPos++;
+        showSignal();
     }
 
     private void setProgressColor(int p){

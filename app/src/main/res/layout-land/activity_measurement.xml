@@ -209,14 +209,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:visibility="gone">
+            android:layout_weight="2">
 
             <Button
                 android:id="@+id/measurement_prev_btn"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_margin="30dp"
+                android:onClick="showPrev"
                 android:text="@string/char_lt"
                 android:textSize="34sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -227,6 +227,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_margin="30dp"
+                android:onClick="showNext"
                 android:text="@string/char_gt"
                 android:textSize="34sp"
                 app:layout_constraintEnd_toEndOf="parent"
