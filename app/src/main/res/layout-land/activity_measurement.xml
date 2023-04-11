@@ -219,8 +219,19 @@
                 android:onClick="showPrev"
                 android:text="@string/char_lt"
                 android:textSize="34sp"
+                app:layout_constraintEnd_toStartOf="@+id/measurement_pageIndicator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/measurement_pageIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/measurement_next_btn"
+                app:layout_constraintStart_toEndOf="@+id/measurement_prev_btn"
+                app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
             <Button
                 android:id="@+id/measurement_next_btn"
@@ -230,9 +241,9 @@
                 android:onClick="showNext"
                 android:text="@string/char_gt"
                 android:textSize="34sp"
+                app:layout_constraintStart_toEndOf="@+id/measurement_pageIndicator"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

@@ -2,10 +2,16 @@ package com.example.a5geigir.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.shapes.PathShape;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,20 +25,13 @@ import com.example.a5geigir.db.AppDatabase;
 import com.example.a5geigir.db.Signal;
 
 import java.util.List;
+import java.util.zip.Inflater;
 
 public class MeasurementActivity extends AppCompatActivity {
 
     private int currentPos = 0;
     private List<Signal> signalList;
-    private TextView signalDate;
-    private TextView signalTime;
-    private TextView signalDBm;
     private ProgressBar signalBar;
-    private TextView signalCId;
-    private TextView signalUbiLat;
-    private TextView signalUbiLong;
-    private TextView signalFreq;
-    private TextView signalType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,35 +54,54 @@ public class MeasurementActivity extends AppCompatActivity {
     }
 
     private void showSignal() {
+        //Fill the info about the signal
         Signal currentSignal = signalList.get(currentPos);
 
-        signalDate = (TextView) findViewById(R.id.measurement_date);
+        TextView signalDate = (TextView) findViewById(R.id.measurement_date);
         signalDate.setText(currentSignal.moment.split(" ")[0]);
 
-        signalTime = (TextView) findViewById(R.id.measurement_time);
+        TextView signalTime = (TextView) findViewById(R.id.measurement_time);
         signalTime.setText(currentSignal.moment.split(" ")[1]);
 
-        signalDBm = (TextView) findViewById(R.id.measurement_dBm_value);
-        signalDBm.setText(currentSignal.dBm+"");
+        TextView signalDBm = (TextView) findViewById(R.id.measurement_dBm_value);
+        signalDBm.setText(currentSignal.dBm+" dBm");
 
         signalBar = (ProgressBar) findViewById(R.id.measurement_dBm_bar);
         signalBar.setProgress(currentSignal.dBm);
         setProgressColor(currentSignal.dBm);
 
-        signalCId = (TextView) findViewById(R.id.measurement_cId_value);
+        TextView signalCId = (TextView) findViewById(R.id.measurement_cId_value);
         signalCId.setText(currentSignal.cId+"");
 
-        signalUbiLat = (TextView) findViewById(R.id.measurement_ubiLat_value);
+        TextView signalUbiLat = (TextView) findViewById(R.id.measurement_ubiLat_value);
         signalUbiLat.setText(currentSignal.ubiLat+"");
 
-        signalUbiLong = (TextView) findViewById(R.id.measurement_ubiLong_value);
+        TextView signalUbiLong = (TextView) findViewById(R.id.measurement_ubiLong_value);
         signalUbiLong.setText(currentSignal.ubiLong+"");
 
-        signalFreq = (TextView) findViewById(R.id.measurement_freq_value);
+        TextView signalFreq = (TextView) findViewById(R.id.measurement_freq_value);
         signalFreq.setText(currentSignal.freq+"");
 
-        signalType = (TextView) findViewById(R.id.measurement_type_value);
+        TextView signalType = (TextView) findViewById(R.id.measurement_type_value);
         signalType.setText(currentSignal.type+"");
+
+
+        //Currently displaying signal page indicator
+        LinearLayout pageIndicator = (LinearLayout) findViewById(R.id.measurement_pageIndicator);
+        pageIndicator.removeAllViews();
+        View dot;
+        LinearLayout.LayoutParams params;
+        for (int i = 0; i < signalList.size(); i++){
+            //20dp x 20dp for each dot, LayoutParams receives pixels
+            params = new LinearLayout.LayoutParams((int) (20*getResources().getDisplayMetrics().density), (int) (20*getResources().getDisplayMetrics().density));
+            dot = new View(this);
+            if (i == currentPos)
+                dot.setBackgroundResource(R.drawable.selected_dot);
+            else
+                dot.setBackgroundResource(R.drawable.default_dot);
+            dot.setLayoutParams(params);
+            pageIndicator.addView(dot);
+        }
     }
 
     public void showPrev(View v){

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/measurement"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MeasurementActivity">
@@ -69,8 +70,8 @@
                 android:id="@+id/measurement_cId_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
                 android:text="@string/measurement_cId_title"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,8 +93,8 @@
                 android:id="@+id/measurement_ubiLat_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
                 android:text="@string/measurement_ubiLat_title"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,13 +116,36 @@
                 android:id="@+id/measurement_ubiLong_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
                 android:text="@string/measurement_ubiLong_title"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/measurement_ubiLong_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
+
+            <TextView
+                android:id="@+id/measurement_freq_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/measurement_freq_title"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/measurement_freq_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
@@ -155,40 +179,32 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5">
-
-            <TextView
-                android:id="@+id/measurement_freq_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:text="@string/measurement_freq_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/measurement_freq_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:weightSum="1">
 
             <Button
                 android:id="@+id/measurement_prev_btn"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_margin="30dp"
+                android:layout_weight="0.25"
                 android:onClick="showPrev"
                 android:text="@string/char_lt"
                 android:textSize="34sp"
+                app:layout_constraintEnd_toStartOf="@+id/measurement_pageIndicator"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/measurement_pageIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_marginVertical="30dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/measurement_next_btn"
+                app:layout_constraintStart_toEndOf="@+id/measurement_prev_btn"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
@@ -196,12 +212,15 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_margin="30dp"
+                android:layout_weight="0.25"
                 android:onClick="showNext"
                 android:text="@string/char_gt"
                 android:textSize="34sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/measurement_pageIndicator"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
