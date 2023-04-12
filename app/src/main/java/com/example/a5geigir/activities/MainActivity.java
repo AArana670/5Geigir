@@ -34,7 +34,7 @@ import androidx.room.Room;
 
 import com.example.a5geigir.DialogListener;
 import com.example.a5geigir.NetworkListener;
-import com.example.a5geigir.NetworkManager;
+import com.example.a5geigir.ReaderManager;
 import com.example.a5geigir.PermissionDialog;
 import com.example.a5geigir.R;
 import com.example.a5geigir.db.AppDatabase;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
 
 
     private AppDatabase db;
-    private NetworkManager networkManager;
+    private ReaderManager readerManager;
     private NotificationCompat.Builder builder;
     NotificationManagerCompat compat;
     private TextView measurementTitle;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
 
         setContentView(R.layout.activity_main);
 
-        networkManager = NetworkManager.getInstance(this);
+        readerManager = ReaderManager.getInstance(this);
 
         db = Room.databaseBuilder(
                 getApplicationContext(),
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
     private void displayState() {  //In case the thread was already running, opening the app will restore the display
         Button btn = (Button) findViewById(R.id.main_btn);
 
-        if (networkManager.isRunning()){
+        if (readerManager.isRunning()){
             showCurrentMeasurement(/*null*/);
             btn.setText(R.string.main_measureStop);
         }else{
@@ -131,11 +131,11 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
     public void switchState(View v){
         Button btn = (Button) findViewById(R.id.main_btn);
 
-        if (networkManager.isRunning()) {  //If it was measuring, stop it
+        if (readerManager.isRunning()) {  //If it was measuring, stop it
             stopMeasure();
             showLastMeasurement();
             btn.setText(R.string.main_measureStart);
-            networkManager.removeListener(this);
+            readerManager.removeListener(this);
         } else {  //If it was not measuring, start it
             if (!hasPermissions()) {  //Insist on the permission request
                 DialogFragment dialog = new PermissionDialog();
@@ -144,18 +144,18 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
                 startMeasure();
                 showCurrentMeasurement(/*null*/);
                 btn.setText(R.string.main_measureStop);
-                networkManager.addListener(this);
+                readerManager.addListener(this);
             }
         }
     }
 
     @SuppressLint("MissingPermission")
     private void startMeasure() {
-        networkManager.run();
+        readerManager.run();
     }
 
     public void stopMeasure(){
-        networkManager.stop();
+        readerManager.stop();
     }
 
     private void showLastMeasurement() {
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
     }
 
     private void showCurrentMeasurement() {
-        measurementTitle.setText(getText(R.string.currentMeasurement_cont)+": "+networkManager.getCount());
+        measurementTitle.setText(getText(R.string.currentMeasurement_cont)+": "+ readerManager.getCount());
         Signal s = db.signalDao().getLastSignal();
         if (s != null) {
             measurementMoment.setText(s.moment);
@@ -232,8 +232,8 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
     @Override
     protected void onPause() {
         super.onPause();
-        networkManager.removeListener(this);
-        if (networkManager.isRunning())
+        readerManager.removeListener(this);
+        if (readerManager.isRunning())
             buildNotification();
     }
 
@@ -246,12 +246,12 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
         measurementMoment = findViewById(R.id.main_measurement_moment);
         measurementBar = findViewById(R.id.main_measurement_bar);
 
-        networkManager = NetworkManager.getInstance(this);
+        readerManager = ReaderManager.getInstance(this);
 
         displayState();
 
-        if (networkManager.isRunning()) {
-            networkManager.addListener(this);
+        if (readerManager.isRunning()) {
+            readerManager.addListener(this);
             cancelNotification();
         }
     }

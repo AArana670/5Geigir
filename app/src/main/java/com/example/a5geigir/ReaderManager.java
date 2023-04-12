@@ -8,6 +8,11 @@ import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 import androidx.room.Room;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.example.a5geigir.db.AppDatabase;
 import com.example.a5geigir.db.Measurement;
@@ -17,10 +22,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class NetworkManager {
+public class ReaderManager {
 
-    private static NetworkManager instance = null;
+    private static ReaderManager instance = null;
     private Thread reader;
     private final ArrayList<NetworkListener> listeners = new ArrayList<NetworkListener>();
     private final SharedPreferences prefs;
@@ -31,7 +37,7 @@ public class NetworkManager {
     private final LocationController locationController;
 
 
-    private NetworkManager(Context context) {
+    private ReaderManager(Context context) {
         this.context = context;
         createReader();
 
@@ -100,9 +106,9 @@ public class NetworkManager {
         return m;
     }
 
-    public static NetworkManager getInstance(Context context){
+    public static ReaderManager getInstance(Context context){
         if (instance == null){
-            instance = new NetworkManager(context);
+            instance = new ReaderManager(context);
         }
         return instance;
     }
@@ -134,10 +140,15 @@ public class NetworkManager {
         reader.start();
         running = true;
         counter = 0;
+
+        OneTimeWorkRequest readingWorker = new OneTimeWorkRequest.Builder(PeriodicReader.class).build();
+        WorkManager.getInstance(context).enqueueUniqueWork("reading",
+                ExistingWorkPolicy.REPLACE, readingWorker);
     }
 
     public void stop(){
         reader.interrupt();
         running = false;
+        WorkManager.getInstance(context).cancelUniqueWork("reading");
     }
 }

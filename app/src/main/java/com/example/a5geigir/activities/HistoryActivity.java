@@ -2,7 +2,6 @@ package com.example.a5geigir.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -15,7 +14,7 @@ import androidx.room.Room;
 
 import com.example.a5geigir.DataUploader;
 import com.example.a5geigir.ListAdapter;
-import com.example.a5geigir.NetworkManager;
+import com.example.a5geigir.ReaderManager;
 import com.example.a5geigir.R;
 import com.example.a5geigir.db.AppDatabase;
 import com.example.a5geigir.db.Signal;
@@ -27,7 +26,7 @@ public class HistoryActivity extends AppCompatActivity {
     RecyclerView signalRecyler;
     ListAdapter listAdapter;
     private AppDatabase db;
-    private NetworkManager networkManager;
+    private ReaderManager readerManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
