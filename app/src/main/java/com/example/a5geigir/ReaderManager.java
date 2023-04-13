@@ -2,6 +2,7 @@ package com.example.a5geigir;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class ReaderManager {
     private boolean running = false;
     private int counter = 0;
     private final LocationController locationController;
+    private Intent readingIntent;
 
 
     private ReaderManager(Context context) {
@@ -60,7 +62,8 @@ public class ReaderManager {
                     while (true) {
                         Thread.sleep(5000);
                         Measurement m = measure();
-                        notifyListeners(m);
+                        counter++;
+                        notifyListeners(null);
                     }
                 } catch (InterruptedException e) {
                 }
@@ -101,8 +104,6 @@ public class ReaderManager {
 
         db.measurementDao().insertMeasurement(m);
 
-        counter++;
-
         return m;
     }
 
@@ -141,14 +142,19 @@ public class ReaderManager {
         running = true;
         counter = 0;
 
-        OneTimeWorkRequest readingWorker = new OneTimeWorkRequest.Builder(PeriodicReader.class).build();
-        WorkManager.getInstance(context).enqueueUniqueWork("reading",
-                ExistingWorkPolicy.REPLACE, readingWorker);
+        /*PeriodicWorkRequest readingWorker = new PeriodicWorkRequest.Builder(PeriodicReader.class,
+                5, TimeUnit.SECONDS).build();
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork("reading",
+                ExistingPeriodicWorkPolicy.REPLACE, readingWorker);*/
+        readingIntent = new Intent(context, ReaderService.class);
+        context.startForegroundService(readingIntent);
+
     }
 
     public void stop(){
         reader.interrupt();
         running = false;
-        WorkManager.getInstance(context).cancelUniqueWork("reading");
+        //WorkManager.getInstance(context).cancelUniqueWork("reading");
+        context.stopService(readingIntent);
     }
 }

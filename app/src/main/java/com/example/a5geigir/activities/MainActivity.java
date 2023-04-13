@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
         Signal s = db.signalDao().getLastSignal();
         if (s != null) {
             measurementMoment.setText(s.moment);
-            measurementDBm.setText(s.dBm+"");
+            measurementDBm.setText(s.dBm+" dBm");
             measurementBar.setProgress(s.dBm);
             setProgressColor(s.dBm);
         }
@@ -233,8 +233,8 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
     protected void onPause() {
         super.onPause();
         readerManager.removeListener(this);
-        if (readerManager.isRunning())
-            buildNotification();
+        /*if (readerManager.isRunning())
+            buildNotification();*/
     }
 
     @Override
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
 
         if (readerManager.isRunning()) {
             readerManager.addListener(this);
-            cancelNotification();
+            //cancelNotification();
         }
     }
 
