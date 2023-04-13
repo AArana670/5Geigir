@@ -17,6 +17,7 @@ import com.example.a5geigir.ListAdapter;
 import com.example.a5geigir.ReaderManager;
 import com.example.a5geigir.R;
 import com.example.a5geigir.db.AppDatabase;
+import com.example.a5geigir.db.Measurement;
 import com.example.a5geigir.db.Signal;
 
 import java.util.List;
@@ -45,9 +46,9 @@ public class HistoryActivity extends AppCompatActivity {
                 "signalDB"
         ).allowMainThreadQueries().build();
 
-        List<Signal> signalList = db.signalDao().getSignals();
+        List<Measurement> measurementList = db.measurementDao().getMeasurements();
 
-        listAdapter = new ListAdapter(signalList,this);
+        listAdapter = new ListAdapter(measurementList,this);
 
         signalRecyler.setAdapter(listAdapter);
     }

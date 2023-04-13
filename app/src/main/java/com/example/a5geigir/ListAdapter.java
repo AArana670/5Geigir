@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a5geigir.activities.MeasurementActivity;
+import com.example.a5geigir.db.Measurement;
 import com.example.a5geigir.db.Signal;
 
 import java.util.Collections;
@@ -20,12 +21,12 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
 
-    private final List<Signal> signalList;
+    private final List<Measurement> measurementList;
     private final Context context;
 
-    public ListAdapter(List<Signal> signalList, Context context) {
-        this.signalList = signalList;
-        Collections.reverse(this.signalList);
+    public ListAdapter(List<Measurement> measurementList, Context context) {
+        this.measurementList = measurementList;
+        Collections.reverse(this.measurementList);
         this.context = context;
     }
 
@@ -38,18 +39,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String moment = signalList.get(position).moment;
+        String moment = measurementList.get(position).moment;
         holder.signalDate.setText(moment.split(" ")[0]);
         holder.signalTime.setText(moment.split(" ")[1]);
-        holder.signalDBm.setText(signalList.get(position).dBm+" dBm");
-        holder.signalBar.setProgress(signalList.get(position).dBm);
+        holder.signalDBm.setText(measurementList.get(position).meanDBm+" dBm");
+        holder.signalBar.setProgress(measurementList.get(position).meanDBm);
         setProgressColor(holder.signalBar);
 
         holder.signalPanel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, MeasurementActivity.class);
-                i.putExtra("moment",signalList.get(holder.getAdapterPosition()).moment+"");
+                i.putExtra("moment",measurementList.get(holder.getAdapterPosition()).moment+"");
                 i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(i);
             }
@@ -71,7 +72,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return signalList.size();
+        return measurementList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
