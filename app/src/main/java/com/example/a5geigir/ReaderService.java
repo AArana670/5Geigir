@@ -51,8 +51,9 @@ public class ReaderService extends Service {
         PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
 
         Notification n = new NotificationCompat.Builder(this, "readingChannel")
-                .setContentTitle("reading...")
                 .setContentIntent(pi)
+                .setContentTitle(getString(R.string.notification_measuring_title))  //https://developer.android.com/reference/android/app/Notification.Builder.html#public-methods
+                .setContentText(getString(R.string.notification_measuring_desc))
                 .build();
         startForeground(1, n);
 
@@ -61,67 +62,19 @@ public class ReaderService extends Service {
         handlerThread.start();
         handler = new Handler(handlerThread.getLooper());
 
-        //enqueueReader();
 
         return START_STICKY;
     }
 
-    /*private void enqueueReader() {
-        Runnable runnable = new Runnable() {
-            public void run() {
-                measure();
-                handler.postDelayed(runnable ,5000);
-            }
-        };
-        handler.postDelayed(runnable, 5000);
-    }*/
-
     private void createNotficationChannel() {
 
         NotificationChannel channel = new NotificationChannel(
-                "readingChannel", "Foreground notification", NotificationManager.IMPORTANCE_DEFAULT
+                "readingChannel", getString(R.string.notification_measuring_id), NotificationManager.IMPORTANCE_DEFAULT
         );
         NotificationManager manager = getSystemService(NotificationManager.class);
         manager.createNotificationChannel(channel);
 
     }
-
-    private void measure(){
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-
-        double ubiLat = 0;
-        double ubiLong = 0;
-        if (!prefs.getBoolean("private_mode",false)) {
-            Location ubi = locationController.getLastLocation();
-            ubiLat = ubi.getLatitude();
-            ubiLong = ubi.getLongitude();
-        }
-
-        int amount = (int) (Math.random()*10)+1;
-        List<Integer> dBmList = new ArrayList<Integer>();
-
-        for (int i = 0; i < amount; i++){
-            int cId = i;
-            int dBm = (int) ((Math.random()*-50)-20);
-            String type = "5G";
-            int freq = (int) ((Math.random()*400)+3400);
-
-            Signal s = new Signal(cId, moment, ubiLat, ubiLong, dBm, type, freq);
-            db.signalDao().insertSignal(s);
-            dBmList.add(dBm);
-            Log.d("SignalDB", "Added new; cId: "+s.cId+", moment: "+s.moment+", ubiLat: "+s.ubiLat+", ubiLong: "+ s.ubiLong+", dBm: "+s.dBm);
-        }
-
-        int meanDBm = (int)dBmList.stream().mapToDouble(a->a).average().getAsDouble();  //https://stackoverflow.com/a/31021873
-
-        Measurement m = new Measurement(moment, meanDBm);
-
-        db.measurementDao().insertMeasurement(m);
-
-        //enqueueReader();
-    }
-
-
 
     @Override
     public void onDestroy() {

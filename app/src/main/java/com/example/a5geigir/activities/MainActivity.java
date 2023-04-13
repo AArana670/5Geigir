@@ -233,8 +233,6 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
     protected void onPause() {
         super.onPause();
         readerManager.removeListener(this);
-        /*if (readerManager.isRunning())
-            buildNotification();*/
     }
 
     @Override
@@ -250,10 +248,8 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
 
         displayState();
 
-        if (readerManager.isRunning()) {
+        if (readerManager.isRunning())
             readerManager.addListener(this);
-            //cancelNotification();
-        }
     }
 
     private boolean hasPermissions(){
@@ -270,15 +266,5 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressLint("MissingPermission")//Every permission is checked in switchState
-    private void buildNotification(){
-        if (!prefs.getBoolean("silent_mode", false))
-            compat.notify(1,builder.build());
-    }
-
-    private void cancelNotification(){
-        compat.cancel(1);
     }
 }

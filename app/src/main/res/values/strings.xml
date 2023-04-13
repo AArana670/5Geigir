@@ -50,4 +50,5 @@
     <string name="menu_uploadOption">Upload</string>
     <string name="hist_dataUploaded_success">Data successfully uploaded</string>
     <string name="hist_datUploaded_error">Data could not be uploaded, please try later</string>
+    <string name="notification_measuring_id">Measurement ongoing</string>
 </resources>

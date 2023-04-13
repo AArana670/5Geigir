@@ -51,4 +51,5 @@
     <string name="menu_uploadOption">Subir</string>
     <string name="hist_dataUploaded_success">Datos subidos exitosamente</string>
     <string name="hist_datUploaded_error">Los datos no pudieron subirse, por favor inténtalo más tarde</string>
+    <string name="notification_measuring_id">Medición en curso</string>
 </resources>
