@@ -60,7 +60,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     public void uploadData(){
-        DataUploader dataUploader = DataUploader.getInstance();
+        DataUploader dataUploader = DataUploader.getInstance(this);
 
         int status = dataUploader.upload();
         if (status == DataUploader.SUCCESS)
