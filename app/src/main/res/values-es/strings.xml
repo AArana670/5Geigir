@@ -50,6 +50,9 @@
     <string name="menu_refreshOption">Refrescar</string>
     <string name="menu_uploadOption">Subir</string>
     <string name="hist_dataUploaded_success">Datos subidos exitosamente</string>
-    <string name="hist_datUploaded_error">Los datos no pudieron subirse, por favor inténtalo más tarde</string>
+    <string name="hist_dataUploaded_error">Los datos no pudieron subirse, por favor inténtalo más tarde</string>
     <string name="notification_measuring_id">Medición en curso</string>
+    <string name="notification_upload_id">Subida de datos</string>
+    <string name="notification_upload_title_success">Datos subidos exitosamente</string>
+    <string name="notification_upload_title_error">Fallo al subir los datos</string>
 </resources>

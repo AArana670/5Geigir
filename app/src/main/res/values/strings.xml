@@ -49,6 +49,9 @@
     <string name="menu_refreshOption">Refresh</string>
     <string name="menu_uploadOption">Upload</string>
     <string name="hist_dataUploaded_success">Data successfully uploaded</string>
-    <string name="hist_datUploaded_error">Data could not be uploaded, please try later</string>
+    <string name="hist_dataUploaded_error">Data could not be uploaded, please try later</string>
     <string name="notification_measuring_id">Measurement ongoing</string>
+    <string name="notification_upload_id">Data upload</string>
+    <string name="notification_upload_title_success">Data successfully uploaded</string>
+    <string name="notification_upload_title_error">Data failed to upload</string>
 </resources>

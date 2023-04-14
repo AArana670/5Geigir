@@ -141,11 +141,6 @@ public class ReaderManager {
         reader.start();
         running = true;
         counter = 0;
-
-        /*PeriodicWorkRequest readingWorker = new PeriodicWorkRequest.Builder(PeriodicReader.class,
-                5, TimeUnit.SECONDS).build();
-        WorkManager.getInstance(context).enqueueUniquePeriodicWork("reading",
-                ExistingPeriodicWorkPolicy.REPLACE, readingWorker);*/
         readingIntent = new Intent(context, ReaderService.class);
         context.startForegroundService(readingIntent);
 
@@ -154,7 +149,6 @@ public class ReaderManager {
     public void stop(){
         reader.interrupt();
         running = false;
-        //WorkManager.getInstance(context).cancelUniqueWork("reading");
         context.stopService(readingIntent);
     }
 }

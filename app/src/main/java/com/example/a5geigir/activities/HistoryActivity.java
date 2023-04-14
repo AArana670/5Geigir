@@ -66,7 +66,7 @@ public class HistoryActivity extends AppCompatActivity {
         if (status == DataUploader.SUCCESS)
             Toast.makeText(this, getText(R.string.hist_dataUploaded_success), Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(this, getText(R.string.hist_datUploaded_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.hist_dataUploaded_error), Toast.LENGTH_SHORT).show();
         createList();
     }
 
