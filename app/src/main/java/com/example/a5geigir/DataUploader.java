@@ -1,7 +1,11 @@
 package com.example.a5geigir;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.preference.PreferenceManager;
@@ -58,6 +62,22 @@ public class DataUploader {
         }
 
         return DataUploader.SUCCESS;
+    }
+
+    public void setupService(){
+        Calendar uploadTime= Calendar.getInstance();
+        uploadTime.set(Calendar.HOUR_OF_DAY, 3);
+        uploadTime.set(Calendar.MINUTE, 0);
+        uploadTime.set(Calendar.SECOND, 0);
+
+        Intent i= new Intent(context, UploaderService.class);
+        PendingIntent pi= PendingIntent.getActivity(context,0, i, PendingIntent.FLAG_NO_CREATE);
+
+        AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, uploadTime.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pi);
+
+        Log.d("BackgroundMonitor", "Upload alarm set");
     }
 
 }

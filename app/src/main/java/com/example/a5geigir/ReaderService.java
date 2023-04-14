@@ -39,23 +39,24 @@ public class ReaderService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        createNotficationChannel();
-
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "signalDB")
                 .allowMainThreadQueries().build();
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         locationController = LocationController.getInstance(getApplicationContext());
-        Log.d("BackgroundMonitor", "service reading...");
+        Log.d("BackgroundMonitor", "service started");
 
         Intent i = new Intent(this, MainActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
 
+        //Necessary notification, cannot be silenced from preferences
+        createNotficationChannel();
         Notification notification = new NotificationCompat.Builder(this, "readingChannel")
                 .setContentIntent(pi)
                 .setContentTitle(getString(R.string.notification_measuring_title))  //https://developer.android.com/reference/android/app/Notification.Builder.html#public-methods
                 .setContentText(getString(R.string.notification_measuring_desc))
                 .build();
         startForeground(1, notification);
+
 
         handlerThread = new HandlerThread("ReadingThread");
         handlerThread.setDaemon(true);

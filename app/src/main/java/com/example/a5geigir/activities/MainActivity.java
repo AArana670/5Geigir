@@ -32,6 +32,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.room.Room;
 
+import com.example.a5geigir.DataUploader;
 import com.example.a5geigir.DialogListener;
 import com.example.a5geigir.NetworkListener;
 import com.example.a5geigir.ReaderManager;
@@ -46,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
 
     private AppDatabase db;
     private ReaderManager readerManager;
-    private NotificationCompat.Builder builder;
-    NotificationManagerCompat compat;
     private TextView measurementTitle;
     private TextView measurementDBm;
     private TextView measurementMoment;
@@ -77,24 +76,14 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
             notificationManager.createNotificationChannel(channel);
         }
 
-        builder = new NotificationCompat.Builder(this, "measuring");
-        builder.setContentTitle(getString(R.string.notification_measuring_title));  //https://developer.android.com/reference/android/app/Notification.Builder.html#public-methods
-        builder.setContentText(getString(R.string.notification_measuring_desc));
-        builder.setSmallIcon(R.mipmap.ic_launcher_adaptive_fore);
-        builder.setAutoCancel(true);
-        //builder.setOngoing(true);
-
         //https://developer.android.com/develop/ui/views/notifications/navigation#build_a_pendingintent_with_a_back_stack
         Intent resultIntent = new Intent(this, MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntentWithParentStack(resultIntent);
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,
-                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        builder.setContentIntent(resultPendingIntent);
-
-        compat = NotificationManagerCompat.from(this);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        DataUploader.getInstance(this).setupService();
     }
 
     @Override
