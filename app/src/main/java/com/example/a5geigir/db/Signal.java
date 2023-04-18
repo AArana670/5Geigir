@@ -31,7 +31,10 @@ public class Signal{
     @ColumnInfo(name = "frequency")
     public int freq;  //Radio frequency in MHz
 
-    public Signal(@NonNull int cId, @NonNull String moment, double ubiLat, double ubiLong, int dBm, String type, int freq) {
+    @ColumnInfo(name = "provider")
+    public String provider;  //Telephony provider
+
+    public Signal(@NonNull int cId, @NonNull String moment, double ubiLat, double ubiLong, int dBm, String type, int freq, String provider) {
         this.cId = cId;
         this.moment = moment;
         this.ubiLat = ubiLat;
@@ -39,6 +42,7 @@ public class Signal{
         this.dBm = dBm;
         this.type = type;
         this.freq = freq;
+        this.provider = provider;
     }
 
 }
