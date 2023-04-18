@@ -13,6 +13,8 @@ import androidx.room.Room;
 import com.example.a5geigir.db.AppDatabase;
 import com.example.a5geigir.db.Signal;
 
+import org.json.JSONObject;
+
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -55,9 +57,31 @@ public class DataUploader {
             Log.d("DataTransfer", "No data to be uploaded");
             return DataUploader.CANCEL;
         }
-        
 
-        new NetworkConnection("msg=uwu").execute("http://157.245.35.106/signal");
+        JSONObject jsonList = new JSONObject();
+
+        try {
+            for (Signal s : uploadingSignals) {
+                JSONObject signalJson = new JSONObject();
+                signalJson.put("dBm", s.dBm);
+                signalJson.put("moment", s.moment);
+                signalJson.put("ubiLat", s.ubiLat);
+                signalJson.put("ubiLong", s.ubiLong);
+                signalJson.put("cId", s.cId);
+                signalJson.put("freq", s.freq);
+                signalJson.put("type", s.type);
+
+                jsonList.accumulate("signals", signalJson);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return DataUploader.ERROR;
+        }
+
+        String requestBody = jsonList.toString();
+
+        new NetworkConnection(requestBody).execute("http://157.245.35.106/signal");
 
         String newMoment = Collections.max(uploadingSignals.stream().map(s -> s.moment).collect(Collectors.toList()));
         Log.d("DataTransfer", "New update moment " + newMoment);
@@ -89,7 +113,7 @@ public class DataUploader {
 
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
 
             PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
             out.print(data);
