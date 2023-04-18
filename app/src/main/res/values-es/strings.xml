@@ -55,4 +55,5 @@
     <string name="notification_upload_id">Subida de datos</string>
     <string name="notification_upload_title_success">Datos subidos exitosamente</string>
     <string name="notification_upload_title_error">Fallo al subir los datos</string>
+    <string name="hist_dataUploaded_cancel">No hay datos que subir</string>
 </resources>

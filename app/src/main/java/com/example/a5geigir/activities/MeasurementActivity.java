@@ -57,37 +57,37 @@ public class MeasurementActivity extends AppCompatActivity {
         //Fill the info about the signal
         Signal currentSignal = signalList.get(currentPos);
 
-        TextView signalDate = (TextView) findViewById(R.id.measurement_date);
+        TextView signalDate = findViewById(R.id.measurement_date);
         signalDate.setText(currentSignal.moment.split(" ")[0]);
 
-        TextView signalTime = (TextView) findViewById(R.id.measurement_time);
+        TextView signalTime = findViewById(R.id.measurement_time);
         signalTime.setText(currentSignal.moment.split(" ")[1]);
 
-        TextView signalDBm = (TextView) findViewById(R.id.measurement_dBm_value);
+        TextView signalDBm = findViewById(R.id.measurement_dBm_value);
         signalDBm.setText(currentSignal.dBm+" dBm");
 
-        signalBar = (ProgressBar) findViewById(R.id.measurement_dBm_bar);
+        signalBar = findViewById(R.id.measurement_dBm_bar);
         signalBar.setProgress(currentSignal.dBm);
         setProgressColor(currentSignal.dBm);
 
-        TextView signalCId = (TextView) findViewById(R.id.measurement_cId_value);
+        TextView signalCId = findViewById(R.id.measurement_cId_value);
         signalCId.setText(currentSignal.cId+"");
 
-        TextView signalUbiLat = (TextView) findViewById(R.id.measurement_ubiLat_value);
+        TextView signalUbiLat = findViewById(R.id.measurement_ubiLat_value);
         signalUbiLat.setText(currentSignal.ubiLat+"");
 
-        TextView signalUbiLong = (TextView) findViewById(R.id.measurement_ubiLong_value);
+        TextView signalUbiLong = findViewById(R.id.measurement_ubiLong_value);
         signalUbiLong.setText(currentSignal.ubiLong+"");
 
-        TextView signalFreq = (TextView) findViewById(R.id.measurement_freq_value);
+        TextView signalFreq = findViewById(R.id.measurement_freq_value);
         signalFreq.setText(currentSignal.freq+"");
 
-        TextView signalType = (TextView) findViewById(R.id.measurement_type_value);
+        TextView signalType = findViewById(R.id.measurement_type_value);
         signalType.setText(currentSignal.type+"");
 
 
         //Currently displaying signal page indicator
-        LinearLayout pageIndicator = (LinearLayout) findViewById(R.id.measurement_pageIndicator);
+        LinearLayout pageIndicator = findViewById(R.id.measurement_pageIndicator);
         pageIndicator.removeAllViews();
         View dot;
         LinearLayout.LayoutParams params;

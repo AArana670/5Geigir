@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "391139040787",
+    "project_id": "geiger-fe335",
+    "storage_bucket": "geiger-fe335.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391139040787:android:6c1cb9c1fcd5ccea94e9e6",
+        "android_client_info": {
+          "package_name": "com.example.a5geigir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "391139040787-99f2hun21l3pf1rd6ro4n0459c4kk9ag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-0TmbMKQQ-Xslr48Kj1Sk9gnVhM7wnuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "391139040787-99f2hun21l3pf1rd6ro4n0459c4kk9ag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

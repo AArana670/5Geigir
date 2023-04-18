@@ -67,7 +67,8 @@ public class PermissionActivity extends AppCompatActivity {
             String[] permissions = {
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.POST_NOTIFICATIONS
+                    Manifest.permission.POST_NOTIFICATIONS,
+                    Manifest.permission.INTERNET
             };
             ActivityCompat.requestPermissions(this, permissions, 1);
 

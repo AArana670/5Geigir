@@ -9,11 +9,6 @@ import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 import androidx.room.Room;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 import com.example.a5geigir.db.AppDatabase;
 import com.example.a5geigir.db.Measurement;
@@ -23,13 +18,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ReaderManager {
 
     private static ReaderManager instance = null;
     private Thread reader;
-    private final ArrayList<NetworkListener> listeners = new ArrayList<NetworkListener>();
+    private final ArrayList<ReaderListener> listeners = new ArrayList<ReaderListener>();
     private final SharedPreferences prefs;
     private final AppDatabase db;
     private final Context context;
@@ -114,16 +108,16 @@ public class ReaderManager {
         return instance;
     }
 
-    public void addListener(NetworkListener l){
+    public void addListener(ReaderListener l){
         listeners.add(l);
     }
 
-    public void removeListener(NetworkListener l){
+    public void removeListener(ReaderListener l){
         listeners.remove(l);
     }
 
     private void notifyListeners(Measurement m) {
-        for (NetworkListener l : listeners){
+        for (ReaderListener l : listeners){
             l.onNetworkUpdate(m);
         }
     }

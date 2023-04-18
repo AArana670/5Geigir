@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,14 +26,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.room.Room;
 
 import com.example.a5geigir.DataUploader;
 import com.example.a5geigir.DialogListener;
-import com.example.a5geigir.NetworkListener;
+import com.example.a5geigir.ReaderListener;
 import com.example.a5geigir.ReaderManager;
 import com.example.a5geigir.PermissionDialog;
 import com.example.a5geigir.R;
@@ -42,7 +39,7 @@ import com.example.a5geigir.db.AppDatabase;
 import com.example.a5geigir.db.Measurement;
 import com.example.a5geigir.db.Signal;
 
-public class MainActivity extends AppCompatActivity implements DialogListener, NetworkListener {
+public class MainActivity extends AppCompatActivity implements DialogListener, ReaderListener {
 
 
     private AppDatabase db;
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
     }
 
     private void displayState() {  //In case the thread was already running, opening the app will restore the display
-        Button btn = (Button) findViewById(R.id.main_btn);
+        Button btn = findViewById(R.id.main_btn);
 
         if (readerManager.isRunning()){
             showCurrentMeasurement(/*null*/);
@@ -118,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, N
     }
 
     public void switchState(View v){
-        Button btn = (Button) findViewById(R.id.main_btn);
+        Button btn = findViewById(R.id.main_btn);
 
         if (readerManager.isRunning()) {  //If it was measuring, stop it
             stopMeasure();

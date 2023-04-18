@@ -85,10 +85,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            signalDate = (TextView) itemView.findViewById(R.id.signal_date);
-            signalTime = (TextView) itemView.findViewById(R.id.signal_time);
-            signalDBm = (TextView) itemView.findViewById(R.id.signal_dBm);
-            signalBar = (ProgressBar) itemView.findViewById(R.id.signal_bar);
+            signalDate = itemView.findViewById(R.id.signal_date);
+            signalTime = itemView.findViewById(R.id.signal_time);
+            signalDBm = itemView.findViewById(R.id.signal_dBm);
+            signalBar = itemView.findViewById(R.id.signal_bar);
             signalPanel = itemView.findViewById(R.id.signal_panel);
         }
     }
