@@ -67,8 +67,8 @@ public class MeasurementActivity extends AppCompatActivity {
         signalDBm.setText(currentSignal.dBm+" dBm");
 
         signalBar = findViewById(R.id.measurement_dBm_bar);
-        signalBar.setProgress(currentSignal.dBm);
         setProgressColor(currentSignal.dBm);
+        signalBar.setProgress(currentSignal.dBm);
 
         TextView signalCId = findViewById(R.id.measurement_cId_value);
         signalCId.setText(currentSignal.cId+"");
