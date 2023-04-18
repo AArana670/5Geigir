@@ -69,30 +69,14 @@ public class ReaderManager {
     private Measurement measure() {
         String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
-        double ubiLat = 0;
-        double ubiLong = 0;
-        if (!prefs.getBoolean("private_mode",false)) {
-            Location ubi = locationController.getLastLocation();
-            ubiLat = ubi.getLatitude();
-            ubiLong = ubi.getLongitude();
-        }
+        List<Signal> signalList = CellReader.getInstance(context).readCells();
 
-        int amount = (int) (Math.random()*10)+1;
-        List<Integer> dBmList = new ArrayList<Integer>();
-
-        for (int i = 0; i < amount; i++){
-            int cId = i;
-            int dBm = (int) ((Math.random()*-50)-20);
-            String type = "5G";
-            int freq = (int) ((Math.random()*400)+3400);
-
-            Signal s = new Signal(cId, moment, ubiLat, ubiLong, dBm, type, freq);
+        for (Signal s : signalList){
             db.signalDao().insertSignal(s);
-            dBmList.add(dBm);
             Log.d("SignalDB", "Added new; cId: "+s.cId+", moment: "+s.moment+", ubiLat: "+s.ubiLat+", ubiLong: "+ s.ubiLong+", dBm: "+s.dBm);
         }
 
-        int meanDBm = (int)dBmList.stream().mapToDouble(a->a).average().getAsDouble();  //https://stackoverflow.com/a/31021873
+        int meanDBm = (int)signalList.stream().mapToDouble(s->s.dBm).average().getAsDouble();  //https://stackoverflow.com/a/31021873
 
         Measurement m = new Measurement(moment, meanDBm);
 

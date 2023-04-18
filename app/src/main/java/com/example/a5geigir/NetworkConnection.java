@@ -28,7 +28,7 @@ public class NetworkConnection extends AsyncTask {
 
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
 
             PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
             out.print(data);

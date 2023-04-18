@@ -28,7 +28,7 @@ public class CellReader {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public CellReader getInstance(Context context){
+    public static CellReader getInstance(Context context){
         if(instance == null)
             instance = new CellReader(context);
         return instance;
@@ -59,7 +59,6 @@ public class CellReader {
             Signal s = new Signal(cId, moment, ubiLat, ubiLong, dBm, type, freq, provider);
 
             readSignals.add(s);
-            Log.d("SignalDB", "Added new; cId: "+s.cId+", moment: "+s.moment+", ubiLat: "+s.ubiLat+", ubiLong: "+ s.ubiLong+", dBm: "+s.dBm);
         }
 
         return readSignals;
