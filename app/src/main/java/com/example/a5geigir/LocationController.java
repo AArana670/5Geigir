@@ -43,7 +43,8 @@ public class LocationController {
 
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-            fusedLocationClient.getCurrentLocation(LocationRequest.QUALITY_HIGH_ACCURACY,null).addOnSuccessListener((Activity) context, new OnSuccessListener<Location>() {
+            fusedLocationClient.getCurrentLocation(LocationRequest.QUALITY_HIGH_ACCURACY,null)
+                    .addOnSuccessListener(new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
                     ubi = location;

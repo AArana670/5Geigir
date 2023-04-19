@@ -5,10 +5,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(primaryKeys = {"cId","moment"})
+@Entity(primaryKeys = {"signalId","moment"})
 public class Signal{
 
     @NonNull
+    @ColumnInfo(name = "signalId")
+    public int signalId;  //identifier of the instance, no meaningful information
+
     @ColumnInfo(name = "cId")
     public int cId;  //Physical cell identifier
 
@@ -25,8 +28,9 @@ public class Signal{
     @ColumnInfo(name = "dBm")
     public int dBm;  //Signal strength in dBm
 
+    @NonNull
     @ColumnInfo(name = "type")
-    public String type;  //Network type (4G, 5G, ...)
+    public String type;  //Network type (NR, LTE, ...)
 
     @ColumnInfo(name = "frequency")
     public int freq;  //Radio frequency in MHz
@@ -34,7 +38,8 @@ public class Signal{
     @ColumnInfo(name = "provider")
     public String provider;  //Telephony provider
 
-    public Signal(@NonNull int cId, @NonNull String moment, double ubiLat, double ubiLong, int dBm, String type, int freq, String provider) {
+    public Signal(@NonNull int signalId, int cId, @NonNull String moment, double ubiLat, double ubiLong, int dBm, String type, int freq, String provider) {
+        this.signalId = signalId;
         this.cId = cId;
         this.moment = moment;
         this.ubiLat = ubiLat;

@@ -29,15 +29,12 @@ public class ReaderManager {
     private final Context context;
     private boolean running = false;
     private int counter = 0;
-    private final LocationController locationController;
     private Intent readingIntent;
 
 
     private ReaderManager(Context context) {
         this.context = context;
         createReader();
-
-        locationController = LocationController.getInstance(context);
 
         db = Room.databaseBuilder(
                 context,
@@ -69,11 +66,12 @@ public class ReaderManager {
     private Measurement measure() {
         String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
+        @SuppressLint({"NewApi", "LocalSuppress"})
         List<Signal> signalList = CellReader.getInstance(context).readCells();
 
         for (Signal s : signalList){
+            Log.d("SignalDB", "Added new; signalId: "+s.signalId+", cId: "+s.cId+", moment: "+s.moment+", ubiLat: "+s.ubiLat+", ubiLong: "+ s.ubiLong+", dBm: "+s.dBm+", type: "+s.type+", provider: "+s.provider);
             db.signalDao().insertSignal(s);
-            Log.d("SignalDB", "Added new; cId: "+s.cId+", moment: "+s.moment+", ubiLat: "+s.ubiLat+", ubiLong: "+ s.ubiLong+", dBm: "+s.dBm);
         }
 
         int meanDBm = (int)signalList.stream().mapToDouble(s->s.dBm).average().getAsDouble();  //https://stackoverflow.com/a/31021873
