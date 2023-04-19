@@ -56,7 +56,7 @@ public class CellReader {
             int freq = (int) ((Math.random()*400)+3400);
             String provider = "Oscuro";
 
-            Signal s = new Signal(cId, moment, ubiLat, ubiLong, dBm, type, freq, provider);
+            Signal s = new Signal(i, cId, moment, ubiLat, ubiLong, dBm, type, freq, provider);
 
             readSignals.add(s);
         }
