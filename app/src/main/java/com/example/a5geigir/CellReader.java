@@ -1,5 +1,6 @@
 package com.example.a5geigir;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -63,7 +64,7 @@ public class CellReader {
         return instance;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
+    @SuppressLint("NewApi")
     public List<Signal> readCells() {
 
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -207,6 +208,7 @@ public class CellReader {
 
         return s;
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     private Signal buildSignalTdscdma(CellInfo c, int idx) {
