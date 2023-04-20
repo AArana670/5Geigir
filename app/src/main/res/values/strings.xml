@@ -55,4 +55,6 @@
     <string name="notification_upload_title_success">Data successfully uploaded</string>
     <string name="notification_upload_title_error">Data failed to upload</string>
     <string name="hist_dataUploaded_cancel">There is no data to be uploaded</string>
+    <string name="pref_anonymous_title">Anonymous mode</string>
+    <string name="prefs_anonymous_desc">Signal data will be uploaded anonymously</string>
 </resources>
