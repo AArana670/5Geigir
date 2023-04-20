@@ -34,6 +34,11 @@
             android:key="private_mode"
             android:title="@string/pref_private_title"
             app:summary="@string/pref_private_desc" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="anonymous_mode"
+            android:title="@string/pref_anonymous_title"
+            app:summary="@string/prefs_anonymous_desc" />
     </PreferenceCategory>
 
     <!-- Currently unused feature -->
