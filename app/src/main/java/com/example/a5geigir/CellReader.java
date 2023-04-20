@@ -52,9 +52,9 @@ public class CellReader {
         for (int i = 0; i < amount; i++){
             int cId = i;
             int dBm = (int) ((Math.random()*-50)-20);
-            String type = "5G";
+            String type = "NR";
             int freq = (int) ((Math.random()*400)+3400);
-            String provider = "Oscuro";
+            String provider = "Movistarn't";
 
             Signal s = new Signal(i, cId, moment, ubiLat, ubiLong, dBm, type, freq, provider);
 
