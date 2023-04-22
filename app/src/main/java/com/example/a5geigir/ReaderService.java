@@ -33,16 +33,38 @@ public class ReaderService extends Service {
     private AppDatabase db;
     private SharedPreferences prefs;
     private LocationController locationController;
+    private ReaderManager manager;
+
     private HandlerThread handlerThread;
     private Handler handler;
+    private Runnable runnable;
 
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onCreate() {
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "signalDB")
                 .allowMainThreadQueries().build();
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         locationController = LocationController.getInstance(getApplicationContext());
+        manager = ReaderManager.getInstance(getApplicationContext());
+
+        handlerThread = new HandlerThread("ReadingThread");
+        handlerThread.setDaemon(true);
+        handlerThread.start();
+
+        handler = new Handler(handlerThread.getLooper());
+
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                manager.measure();
+                handler.postDelayed(runnable, 5000);
+            }
+        };
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("BackgroundMonitor", "service started");
 
         Intent i = new Intent(this, MainActivity.class);
@@ -57,12 +79,8 @@ public class ReaderService extends Service {
                 .build();
         startForeground(1, notification);
 
-
-        handlerThread = new HandlerThread("ReadingThread");
-        handlerThread.setDaemon(true);
-        handlerThread.start();
-        handler = new Handler(handlerThread.getLooper());
-
+        handler.removeCallbacks(runnable);
+        handler.post(runnable);
 
         return START_STICKY;
     }
@@ -81,6 +99,10 @@ public class ReaderService extends Service {
     public void onDestroy() {
         stopForeground(true);
         stopSelf();
+
+        handler.removeCallbacks(runnable);
+        handlerThread.quitSafely();
+
         super.onDestroy();
     }
 

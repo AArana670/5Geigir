@@ -32,7 +32,7 @@
     <string name="char_gt"><![CDATA[>]]></string>
     <string name="permission_btn">Conceder</string>
     <string name="dialog_permissions_title">Permisos necesarios</string>
-    <string name="dialog_permissions_desc">5Geiger necesita algunos permisos para medir, por favor concédelos antes de empezar</string>
+    <string name="dialog_permissions_desc">5Geiger necesita acceso constante a tu localización para medir, la información sobre la localicación en sí no se almacenará en modo privado.</string>
     <string name="dialog_permissions_accept">Conceder</string>
     <string name="dialog_permissions_deny">Denegar</string>
     <string name="dialog_permissions_cancelled">Se ha cancelado la medición</string>
