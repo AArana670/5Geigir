@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">5Geiger</string>
+    <string name="app_name" translatable="false">5Geiger</string>
     <string name="welcome_title">Welcome to 5Geiger</string>
     <string name="welcome_msg">With 5Geiger you will be able to measure the electromagnetic emissions of the mobile radio signals of your surroundings.</string>
     <string name="welcome_btn">Next</string>
@@ -57,4 +57,5 @@
     <string name="hist_dataUploaded_cancel">There is no data to be uploaded</string>
     <string name="pref_anonymous_title">Anonymous mode</string>
     <string name="prefs_anonymous_desc">Signal data will be uploaded anonymously</string>
+    <string name="measurement_operator_title">Operator</string>
 </resources>
