@@ -61,7 +61,10 @@ public class DataUploader {
         JSONObject jsonList = new JSONObject();
 
         try {
-            jsonList.put("token", "dummy");  //Special case for uploading fake data
+            if (false)
+                jsonList.put("token", "");
+            else
+                jsonList.put("token", "");
 
             for (Signal s : uploadingSignals) {
                 JSONObject signalJson = new JSONObject();

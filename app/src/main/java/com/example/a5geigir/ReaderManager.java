@@ -34,7 +34,7 @@ public class ReaderManager {
 
     private ReaderManager(Context context) {
         this.context = context;
-        createReader();
+        //createReader();
 
         db = Room.databaseBuilder(
                 context,
@@ -52,7 +52,7 @@ public class ReaderManager {
                 try {
                     while (true) {
                         Thread.sleep(5000);
-                        Measurement m = measure();
+                        measure();
                         counter++;
                         notifyListeners(null);
                     }
@@ -63,7 +63,7 @@ public class ReaderManager {
     }
 
     @SuppressLint("MissingPermission")
-    private Measurement measure() {
+    public void measure() {
         String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
         @SuppressLint({"NewApi", "LocalSuppress"})
@@ -80,7 +80,8 @@ public class ReaderManager {
 
         db.measurementDao().insertMeasurement(m);
 
-        return m;
+        counter++;
+        notifyListeners(null);
     }
 
     public static ReaderManager getInstance(Context context){
@@ -113,8 +114,8 @@ public class ReaderManager {
     }
 
     public void run(){
-        createReader();
-        reader.start();
+        /*createReader();
+        reader.start();*/
         running = true;
         counter = 0;
         readingIntent = new Intent(context, ReaderService.class);
@@ -123,7 +124,7 @@ public class ReaderManager {
     }
 
     public void stop(){
-        reader.interrupt();
+        //reader.interrupt();
         running = false;
         context.stopService(readingIntent);
     }

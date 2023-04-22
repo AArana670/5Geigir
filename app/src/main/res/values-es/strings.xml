@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">5Geiger</string>
     <string name="welcome_title">Bienvenido a 5Geiger</string>
     <string name="welcome_msg">Con 5Geiger vas a ser capaz de medir las emisiones electromagnéticas de las señales de radio de telefonía móvil de tu entorno.</string>
     <string name="welcome_btn">Siguiente</string>
@@ -32,7 +31,7 @@
     <string name="char_gt"><![CDATA[>]]></string>
     <string name="permission_btn">Conceder</string>
     <string name="dialog_permissions_title">Permisos necesarios</string>
-    <string name="dialog_permissions_desc">5Geiger necesita algunos permisos para medir, por favor concédelos antes de empezar</string>
+    <string name="dialog_permissions_desc">5Geiger necesita acceso constante a tu localización para medir, la información sobre la localicación en sí no se almacenará en modo privado.</string>
     <string name="dialog_permissions_accept">Conceder</string>
     <string name="dialog_permissions_deny">Denegar</string>
     <string name="dialog_permissions_cancelled">Se ha cancelado la medición</string>
@@ -58,4 +57,5 @@
     <string name="hist_dataUploaded_cancel">No hay datos que subir</string>
     <string name="pref_anonymous_title">Modo anónimo</string>
     <string name="prefs_anonymous_desc">Los datos de las señales se subirán de forma anónima</string>
+    <string name="measurement_operator_title">Operadora</string>
 </resources>
