@@ -35,6 +35,7 @@ import com.example.a5geigir.ReaderListener;
 import com.example.a5geigir.ReaderManager;
 import com.example.a5geigir.PermissionDialog;
 import com.example.a5geigir.R;
+import com.example.a5geigir.TokenProvider;
 import com.example.a5geigir.db.AppDatabase;
 import com.example.a5geigir.db.Measurement;
 import com.example.a5geigir.db.Signal;
@@ -81,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements DialogListener, R
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         DataUploader.getInstance(this).setupService();
+
+        TokenProvider.initialize(this);  //Token request anticipated to have it ready when needed
     }
 
     @Override

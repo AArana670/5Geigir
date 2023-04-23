@@ -47,3 +47,5 @@ dependencies {
     implementation ('com.googlecode.json-simple:json-simple:1.1.1')
             { exclude group: 'junit', module: 'junit'}
 }
+
+apply plugin: 'com.google.gms.google-services'
