@@ -4,6 +4,7 @@ import static com.google.firebase.FirebaseOptions.*;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -17,59 +18,36 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class TokenProvider extends FirebaseMessagingService {
 
-    private static TokenProvider instance = null;
-    private Context context;
     private static String token;
+    private static int TOKEN_LENGTH = 10;
 
-    private TokenProvider(Context context){
-        this.context = context;
-
-        /*FileInputStream refreshToken = new FileInputStream("path/to/refreshToken.json");
-
-        FirebaseOptions options = FirebaseOptions.builder()
-
-                .build();*/
-
-        //FirebaseApp.initializeApp(context);
+    public static String getShortenedToken(Context context){
+        initialize(context);
+        return token.substring(token.length() - TOKEN_LENGTH);  //last n characters of the token
     }
 
-    public static TokenProvider getInstance(Context context){
-        if (instance == null)
-            instance = new TokenProvider(context);
-        return instance;
+    public static void initialize(Context context){
+        if (token == null)
+            generateToken(context);
     }
 
-    @Override
-    public void onNewToken(String s) {  //https://stackoverflow.com/a/41515597
-        super.onNewToken(s);
-        Log.d("SignalDB", "New token: " + s);
-        getSharedPreferences("_", MODE_PRIVATE).edit().putString("fb", s).apply();
-    }
-
-    @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
-        super.onMessageReceived(remoteMessage);
-    }
-
-    public String getToken() {
-        FirebaseApp.initializeApp(context);
-
+    private static void generateToken(Context context){
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         if (!task.isSuccessful()) {
-                            Log.e("Firebase", "Fetching FCM registration token failed", task.getException());
+                            Log.w("Firebase", "Fetching FCM registration token failed", task.getException());
                             return;
                         }
 
                         // Get new FCM registration token
                         token = task.getResult();
 
+                        // Log and toast
                         Log.d("Firebase", "token: " + token);
                     }
                 });
-
-        return token;
     }
+
 }
