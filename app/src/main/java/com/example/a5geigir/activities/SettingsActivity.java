@@ -5,15 +5,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.example.a5geigir.R;
+import com.example.a5geigir.TokenProvider;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -23,6 +35,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseApp.initializeApp(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
         if (savedInstanceState == null) {
@@ -116,15 +130,15 @@ public class SettingsActivity extends AppCompatActivity {
 
             setPreferencesFromResource(R.xml.preferences, rootKey);
 
-            /*Preference tokenPref = findPreference("token");  //Currently unused feature
+            Preference tokenPref = findPreference("token");  //Currently unused feature
             if (tokenPref != null) {
                 tokenPref.setSummaryProvider(new Preference.SummaryProvider<Preference>() {  //https://developer.android.com/develop/ui/views/components/settings/customize-your-settings#java
                     @Override
                     public CharSequence provideSummary(Preference preference) {  //Set the summary of Token field
-                        return "Token: " + "Merequetengue";
+                        return TokenProvider.getShortenedToken(getContext());
                     }
                 });
-            }*/
+            }
         }
     }
 }
