@@ -64,7 +64,7 @@ public class DataUploader {
             if (prefs.getBoolean("anonymous_mode", false))
                 jsonList.put("token", "");  //token is sent empty to upload anonymously
             else
-                jsonList.put("token", "");
+                jsonList.put("token", TokenProvider.getInstance().getToken());
 
             for (Signal s : uploadingSignals) {
                 JSONObject signalJson = new JSONObject();
