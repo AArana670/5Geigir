@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements DialogListener, R
 
         DataUploader.getInstance(this).setupService();
 
-        TokenProvider.initialize(this);
+        TokenProvider.initialize(this);  //Token request anticipated to have it ready when needed
     }
 
     @Override
