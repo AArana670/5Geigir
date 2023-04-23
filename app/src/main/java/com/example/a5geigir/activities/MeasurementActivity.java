@@ -74,16 +74,27 @@ public class MeasurementActivity extends AppCompatActivity {
         signalCId.setText(currentSignal.cId+"");
 
         TextView signalUbiLat = findViewById(R.id.measurement_ubiLat_value);
-        signalUbiLat.setText(currentSignal.ubiLat+"");
-
         TextView signalUbiLong = findViewById(R.id.measurement_ubiLong_value);
-        signalUbiLong.setText(currentSignal.ubiLong+"");
+
+        if (currentSignal.ubiLat==0 && currentSignal.ubiLong==0){
+            signalUbiLat.setText("--");
+            signalUbiLong.setText("--");
+        }else{
+            signalUbiLat.setText(currentSignal.ubiLat+"");
+            signalUbiLong.setText(currentSignal.ubiLong+"");
+        }
 
         TextView signalFreq = findViewById(R.id.measurement_freq_value);
         signalFreq.setText(currentSignal.freq+"");
 
         TextView signalType = findViewById(R.id.measurement_type_value);
         signalType.setText(currentSignal.type+"");
+
+        TextView signalOperator = findViewById(R.id.measurement_operator_value);
+        if (currentSignal.provider==null)
+            signalOperator.setText("--");
+        else
+            signalOperator.setText(currentSignal.provider+"");
 
 
         //Currently displaying signal page indicator
