@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.session.MediaSession;
 import android.util.Log;
 
 import androidx.preference.PreferenceManager;
@@ -61,7 +62,10 @@ public class DataUploader {
         JSONObject jsonList = new JSONObject();
 
         try {
-            jsonList.put("token", "dummy");
+            if (prefs.getBoolean("anonymous_mode", false))
+                jsonList.put("token", "");
+            else
+                jsonList.put("token", TokenProvider.getShortenedToken(context));
 
             for (Signal s : uploadingSignals) {
                 JSONObject signalJson = new JSONObject();
@@ -72,6 +76,7 @@ public class DataUploader {
                 signalJson.put("cId", s.cId);
                 signalJson.put("freq", s.freq);
                 signalJson.put("type", s.type);
+                signalJson.put("operator", s.provider);
 
                 jsonList.accumulate("signals", signalJson);
             }
