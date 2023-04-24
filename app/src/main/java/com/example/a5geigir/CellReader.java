@@ -54,7 +54,7 @@ public class CellReader {
             int dBm = (int) ((Math.random()*-50)-20);
             String type = "NR";
             int freq = (int) ((Math.random()*400)+3400);
-            String provider = "Movistarn't";
+            String provider = "E Corp";
 
             Signal s = new Signal(i, cId, moment, ubiLat, ubiLong, dBm, type, freq, provider);
 
