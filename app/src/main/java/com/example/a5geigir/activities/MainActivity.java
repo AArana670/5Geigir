@@ -67,13 +67,6 @@ public class MainActivity extends AppCompatActivity implements DialogListener, R
                 "signalDB"
         ).allowMainThreadQueries().build();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){  //Create notification channel if the version is Oreo or greater
-            NotificationChannel channel = new NotificationChannel("measuring", "measuring_notification", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.enableVibration(false);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-
         //https://developer.android.com/develop/ui/views/notifications/navigation#build_a_pendingintent_with_a_back_stack
         Intent resultIntent = new Intent(this, MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);

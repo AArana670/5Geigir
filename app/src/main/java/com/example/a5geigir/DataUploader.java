@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.preference.PreferenceManager;
@@ -132,18 +133,15 @@ public class DataUploader {
     }
 
     public void setupService(){
-        Calendar uploadTime= Calendar.getInstance();  //Initial event time
-        uploadTime.set(Calendar.HOUR_OF_DAY, 17);
-        uploadTime.set(Calendar.MINUTE, 45);
-        uploadTime.set(Calendar.SECOND, 0);
+        Calendar calendar = Calendar.getInstance();  //Set first trigger at 3:00 today, then repeat daily
+        calendar.set(Calendar.HOUR_OF_DAY, 19);
+        calendar.set(Calendar.MINUTE, 37);
+        calendar.set(Calendar.SECOND, 0);
 
-        Intent i= new Intent(context, UploaderService.class);
-        PendingIntent pi= PendingIntent.getActivity(context,0, i, PendingIntent.FLAG_NO_CREATE);
-
-        AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, uploadTime.getTimeInMillis(), pi);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, uploadTime.getTimeInMillis(),
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pi);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(context, AlarmReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1 * 60 * 1000, pi);
 
         Log.d("BackgroundMonitor", "Upload alarm set: "+pi);
     }
