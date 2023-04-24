@@ -58,6 +58,7 @@
             android:name="firebase_analytics_collection_enabled"
             android:value="false" />
 
+        <receiver android:name="com.example.a5geigir.AlarmReceiver" />
     </application>
 
 </manifest>
