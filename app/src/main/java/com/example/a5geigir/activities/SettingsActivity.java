@@ -135,7 +135,10 @@ public class SettingsActivity extends AppCompatActivity {
                 tokenPref.setSummaryProvider(new Preference.SummaryProvider<Preference>() {  //https://developer.android.com/develop/ui/views/components/settings/customize-your-settings#java
                     @Override
                     public CharSequence provideSummary(Preference preference) {  //Set the summary of Token field
-                        return TokenProvider.getShortenedToken(getContext());
+                        String token = TokenProvider.getShortenedToken(getContext());
+                        if (token == null)
+                            return getString(R.string.loading);
+                        return token;
                     }
                 });
             }
