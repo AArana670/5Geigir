@@ -107,34 +107,6 @@ public class DataUploader {
         return uploadingSignals;
     }
 
-    private int post(String data){
-        String direccion = "http://157.245.35.106/signal";
-        HttpURLConnection urlConnection = null;
-        try {
-
-            URL destino = new URL(direccion);
-            urlConnection = (HttpURLConnection) destino.openConnection();
-            urlConnection.setConnectTimeout(5000);
-            urlConnection.setReadTimeout(5000);
-
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setDoOutput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/json");
-
-            PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
-            out.print(data);
-            out.close();
-
-            int statusCode = urlConnection.getResponseCode();
-            Log.d("DataTransfer", "Result status: " + statusCode);
-        } catch (Exception e){
-            Log.d("DataTransfer", "Error during connection");
-            e.printStackTrace();
-        }
-
-        return 200;
-    }
-
     public void setupService(){
         Calendar calendar = Calendar.getInstance();  //Set first trigger at 3:00 today, then repeat daily
         calendar.set(Calendar.HOUR_OF_DAY, 19);
