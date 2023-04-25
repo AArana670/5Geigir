@@ -22,7 +22,6 @@ import java.util.List;
 public class ReaderManager {
 
     private static ReaderManager instance = null;
-    private Thread reader;
     private final ArrayList<ReaderListener> listeners = new ArrayList<ReaderListener>();
     private final SharedPreferences prefs;
     private final AppDatabase db;
@@ -43,23 +42,6 @@ public class ReaderManager {
         ).allowMainThreadQueries().build();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    }
-
-    private void createReader() {
-        reader = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (true) {
-                        Thread.sleep(5000);
-                        measure();
-                        counter++;
-                        notifyListeners(null);
-                    }
-                } catch (InterruptedException e) {
-                }
-            }
-        });
     }
 
     @SuppressLint("MissingPermission")
