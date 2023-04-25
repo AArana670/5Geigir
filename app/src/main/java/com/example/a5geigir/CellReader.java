@@ -35,7 +35,8 @@ public class CellReader {
     }
 
     public List<Signal> readCells(){
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
+        Log.d("SignalDB", "moment: " + moment);
 
         double ubiLat = 0;
         double ubiLong = 0;

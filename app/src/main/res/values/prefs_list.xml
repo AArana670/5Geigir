@@ -23,4 +23,19 @@
         <!--<item>@string/pref_lang_french</item>-->
         <item>def</item>
     </string-array>
+
+    <string-array name="prefs_speed">
+        <item>0.1 sec</item>
+        <item>0.5 sec</item>
+        <item>1 sec</item>
+        <item>2 sec</item>
+        <item>5 sec</item>
+    </string-array>
+    <string-array name="prefs_speed_values">
+        <item>0.1</item>
+        <item>0.5</item>
+        <item>3</item>
+        <item>2</item>
+        <item>5</item>
+    </string-array>
 </resources>

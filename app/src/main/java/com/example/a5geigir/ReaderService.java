@@ -58,7 +58,8 @@ public class ReaderService extends Service {
             @Override
             public void run() {
                 manager.measure();
-                handler.postDelayed(runnable, 5000);
+                int delay = (int) (Float.parseFloat(prefs.getString("speed", "1"))*1000);
+                handler.postDelayed(runnable, delay);  //delay in millis
             }
         };
     }
