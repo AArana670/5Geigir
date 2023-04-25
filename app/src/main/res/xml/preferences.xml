@@ -39,9 +39,14 @@
             android:key="anonymous_mode"
             android:title="@string/pref_anonymous_title"
             app:summary="@string/prefs_anonymous_desc" />
+        <ListPreference
+            android:defaultValue="3"
+            android:entries="@array/prefs_speed"
+            android:entryValues="@array/prefs_speed_values"
+            android:key="speed"
+            android:title="@string/pref_speed_title" />
     </PreferenceCategory>
 
-    <!-- Currently unused feature -->
     <Preference
         android:key="token"
         android:selectable="false"

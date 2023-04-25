@@ -1,9 +1,7 @@
 package com.example.a5geigir;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.telephony.CellIdentity;
@@ -51,15 +49,15 @@ public class CellReader {
     private SharedPreferences prefs;
     private TelephonyManager telephonyManager;
 
-    private CellReader(Context context) {
-        this.context = context;
+    private CellReader(Context context){
         locationController = LocationController.getInstance(context);
+
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
     }
 
-    public static CellReader getInstance(Context context) {
-        if (instance == null)
+    public static CellReader getInstance(Context context){
+        if(instance == null)
             instance = new CellReader(context);
         return instance;
     }
@@ -107,7 +105,7 @@ public class CellReader {
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     private Signal buildSignalNr(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
 
         double ubiLat = 0;
         double ubiLong = 0;

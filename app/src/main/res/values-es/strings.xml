@@ -58,4 +58,5 @@
     <string name="pref_anonymous_title">Modo anónimo</string>
     <string name="prefs_anonymous_desc">Los datos de las señales se subirán de forma anónima</string>
     <string name="measurement_operator_title">Operadora</string>
+    <string name="pref_speed_title">Tiempo entre mediciones</string>
 </resources>

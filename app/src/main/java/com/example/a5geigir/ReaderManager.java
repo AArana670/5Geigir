@@ -64,7 +64,7 @@ public class ReaderManager {
 
     @SuppressLint("MissingPermission")
     public void measure() {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
 
         @SuppressLint({"NewApi", "LocalSuppress"})
         List<Signal> signalList = CellReader.getInstance(context).readCells();
