@@ -17,4 +17,7 @@ public interface MeasurementDao {
     @Insert
     void insertMeasurement(Measurement measurement);
 
+    @Query("DELETE FROM measurement WHERE moment < :moment")
+    void deleteMeasurementsUntil(String moment);
+
 }
