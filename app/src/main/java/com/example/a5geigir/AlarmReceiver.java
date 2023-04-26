@@ -15,8 +15,13 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.room.Room;
 
 import com.example.a5geigir.activities.MainActivity;
+import com.example.a5geigir.db.AppDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -27,6 +32,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         int uploadResult = DataUploader.getInstance(context).upload();
 
+        if (prefs.getBoolean("data_expiration", false))
+            expireData(context);
+
         if (uploadResult != DataUploader.CANCEL && !prefs.getBoolean("silent_mode", false)) {
             if (uploadResult == DataUploader.SUCCESS)
                 displayNotification(context, context.getString(R.string.notification_upload_title_success));
@@ -34,6 +42,21 @@ public class AlarmReceiver extends BroadcastReceiver {
                 displayNotification(context, context.getString(R.string.notification_upload_title_error));
         }
 
+    }
+
+    private void expireData(Context context) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.WEEK_OF_YEAR, -1);  //Exactly one week before
+        String expirationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(calendar.getTime());
+
+        AppDatabase db = Room.databaseBuilder(
+                context,
+                AppDatabase.class,
+                "signalDB"
+        ).allowMainThreadQueries().build();
+
+        db.measurementDao().deleteMeasurementsUntil(expirationDate);
+        db.signalDao().deleteSignalsUntil(expirationDate);
     }
 
     public void displayNotification(Context context, String msg){
