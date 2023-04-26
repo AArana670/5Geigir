@@ -24,11 +24,11 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_dataManagement">
 
-        <!--CheckBoxPreference  Currently unused feature
+        <CheckBoxPreference
             android:defaultValue="false"
             android:key="data_expiration"
             android:summary="@string/prefs_dataExpiration_desc"
-            android:title="@string/prefs_dataExpiration_title" /-->
+            android:title="@string/prefs_dataExpiration_title" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="private_mode"
