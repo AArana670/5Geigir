@@ -45,6 +45,7 @@ public class CellReader {
     private TelephonyManager telephonyManager;
 
     private CellReader(Context context){
+        this.context = context;
         locationController = LocationController.getInstance(context);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -126,7 +127,7 @@ public class CellReader {
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     private Signal buildSignalLte(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
 
         double ubiLat = 0;
         double ubiLong = 0;
@@ -152,7 +153,7 @@ public class CellReader {
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     private Signal buildSignalGsm(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
 
         double ubiLat = 0;
         double ubiLong = 0;
@@ -178,7 +179,7 @@ public class CellReader {
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     private Signal buildSignalWcdma(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
 
         double ubiLat = 0;
         double ubiLong = 0;
@@ -205,7 +206,7 @@ public class CellReader {
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     private Signal buildSignalTdscdma(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
 
         double ubiLat = 0;
         double ubiLong = 0;

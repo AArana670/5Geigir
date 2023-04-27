@@ -13,7 +13,7 @@ public interface SignalDao {
     List<Signal> getSignals();
 
     @Query("SELECT * FROM signal WHERE moment > :moment")
-    List<Signal> getSignalsSince(String moment);  //Currently unused feature
+    List<Signal> getSignalsSince(String moment);
 
     @Query("SELECT * FROM signal WHERE moment = :moment")
     List<Signal> getSignalsAt(String moment);
@@ -25,7 +25,7 @@ public interface SignalDao {
     void insertSignal(Signal signal);
 
     @Query("DELETE FROM signal WHERE moment < :moment")
-    void deleteSignalsUntil(String moment);  //Currently unused feature
+    void deleteSignalsUntil(String moment);
 
     @Query("DELETE FROM signal")
     void clearSignals();  //Method for debugging purposes only
