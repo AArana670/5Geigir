@@ -87,7 +87,7 @@ public class DataUploader {
 
         String requestBody = jsonList.toString();
 
-        new NetworkConnection(requestBody).execute("http://157.245.35.106/signal");
+        new NetworkConnection(requestBody).execute();
 
         String newMoment = Collections.max(uploadingSignals.stream().map(s -> s.moment).collect(Collectors.toList()));
         Log.d("DataTransfer", "New update moment " + newMoment);
