@@ -69,7 +69,7 @@ public class ReaderService extends Service {
         Log.d("BackgroundMonitor", "service started");
 
         Intent i = new Intent(this, MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_MUTABLE);
 
         //Necessary notification, cannot be silenced from preferences
         createNotficationChannel();

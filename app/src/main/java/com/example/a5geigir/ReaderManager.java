@@ -49,7 +49,7 @@ public class ReaderManager {
         String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
 
         @SuppressLint({"NewApi", "LocalSuppress"})
-        List<Signal> signalList = CellReader.getInstance(context).readCells();
+        List<Signal> signalList = CellReader.getInstance(context).readCells(moment);
 
         for (Signal s : signalList){
             Log.d("SignalDB", "Added new; signalId: "+s.signalId+", cId: "+s.cId+", moment: "+s.moment+", ubiLat: "+s.ubiLat+", ubiLong: "+ s.ubiLong+", dBm: "+s.dBm+", type: "+s.type+", provider: "+s.provider);

@@ -59,7 +59,7 @@ public class CellReader {
     }
 
     @SuppressLint("NewApi")
-    public List<Signal> readCells() {
+    public List<Signal> readCells(String moment) {
 
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.e("Reading", "Trying to read cells without location permission", new Exception());
@@ -77,19 +77,19 @@ public class CellReader {
             int idx = cellList.indexOf(c);
 
             if (c instanceof CellInfoNr){
-                currentSignal = buildSignalNr(c, idx);
+                currentSignal = buildSignalNr(c, idx, moment);
 
             } else if (c instanceof CellInfoLte){
-                currentSignal = buildSignalLte(c, idx);
+                currentSignal = buildSignalLte(c, idx, moment);
 
             } else if (c instanceof CellInfoGsm){
-                currentSignal = buildSignalGsm(c, idx);
+                currentSignal = buildSignalGsm(c, idx, moment);
 
             } else if (c instanceof CellInfoWcdma){
-                currentSignal = buildSignalWcdma(c, idx);
+                currentSignal = buildSignalWcdma(c, idx, moment);
 
             } else if (c instanceof CellInfoTdscdma){
-                currentSignal = buildSignalTdscdma(c, idx);
+                currentSignal = buildSignalTdscdma(c, idx, moment);
             }
 
             if (currentSignal != null)
@@ -100,9 +100,7 @@ public class CellReader {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
-    private Signal buildSignalNr(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
-
+    private Signal buildSignalNr(CellInfo c, int idx, String moment) {
         double ubiLat = 0;
         double ubiLong = 0;
         if (!prefs.getBoolean("private_mode", false)) {
@@ -126,9 +124,7 @@ public class CellReader {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
-    private Signal buildSignalLte(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
-
+    private Signal buildSignalLte(CellInfo c, int idx, String moment) {
         double ubiLat = 0;
         double ubiLong = 0;
         if (!prefs.getBoolean("private_mode", false)) {
@@ -152,9 +148,7 @@ public class CellReader {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
-    private Signal buildSignalGsm(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
-
+    private Signal buildSignalGsm(CellInfo c, int idx, String moment) {
         double ubiLat = 0;
         double ubiLong = 0;
         if (!prefs.getBoolean("private_mode", false)) {
@@ -178,9 +172,7 @@ public class CellReader {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
-    private Signal buildSignalWcdma(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
-
+    private Signal buildSignalWcdma(CellInfo c, int idx, String moment) {
         double ubiLat = 0;
         double ubiLong = 0;
         if (!prefs.getBoolean("private_mode", false)) {
@@ -205,9 +197,7 @@ public class CellReader {
 
 
     @RequiresApi(api = Build.VERSION_CODES.R)
-    private Signal buildSignalTdscdma(CellInfo c, int idx) {
-        String moment = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
-
+    private Signal buildSignalTdscdma(CellInfo c, int idx, String moment) {
         double ubiLat = 0;
         double ubiLong = 0;
         if (!prefs.getBoolean("private_mode", false)) {
